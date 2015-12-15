@@ -20,10 +20,6 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.static(path.join(__dirname, 'node_modules/angular')));
-app.use(express.static(path.join(__dirname, 'node_modules/sortablejs')));
-app.use(express.static(path.join(__dirname, 'node_modules/bootstrap/dist')));
-app.use(express.static(path.join(__dirname, 'node_modules/socket.io-client/')));
 
 app.use('/', routes);
 app.use('/users', users);

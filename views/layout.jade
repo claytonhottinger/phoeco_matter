@@ -2,12 +2,12 @@ doctype html
 html(ng-app="spookyScarySkeleton")
   head
     title= title
-    link(rel='stylesheet', href='css/bootstrap.css')
+    link(rel='stylesheet', href='vendors/bootstrap/dist/css/bootstrap.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
-    script(src='angular.min.js')
-    script(src='Sortable.js')
-    script(src='ng-sortable.js')
-    script(src='socket.io.js')
+    script(src='vendors/angular/angular.min.js')
+    script(src='vendors/sortablejs/Sortable.js')
+    script(src='vendors/sortablejs/ng-sortable.js')
+    script(src='vendors/socket.io-client/socket.io.js')
     script(src='javascripts/client.js')
 
   body(ng-controller="sortable")
