@@ -6,11 +6,11 @@ var app = angular.module('spookyScarySkeleton', ['ng-sortable']);
 var socket = io.connect();
 app.controller('sortable', ['$scope',function($scope){
     socket.on('response',function(data){
-      console.log(data);
       $scope.gameBoard=data;
+      $scope.$apply();
     });
 
-    $scope.gameBoard=[[[{url:'images/phoecologo.png'}],[],[],[],[]]];
+    $scope.gameBoard= [[[{url:'images/phoecologo.png'}],[],[],[],[]]];
 
     $scope.config = {
       group: 'test',

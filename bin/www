@@ -34,8 +34,7 @@ server.on('listening', onListening);
 var io = require('socket.io').listen(server);
 io.sockets.on('connection', function(socket){
   socket.on('sort', function(data){
-    console.log(data);
-    socket.emit('response',data);
+    io.emit('response',data);
   });
 });
 
