@@ -2,7 +2,8 @@
  * Created by chottinger on 12/13/15.
  */
 var app = angular.module('spookyScarySkeleton', ['ng-sortable']);
-var socket = io();
+//var host =
+var socket = io.connect();
 app.controller('sortable', ['$scope',function($scope){
     socket.on('response',function(data){
       console.log(data);
