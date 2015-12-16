@@ -5,6 +5,7 @@ var app = angular.module('spookyScarySkeleton', ['ng-sortable']);
 var socket = io();
 app.controller('sortable', ['$scope',function($scope){
     socket.on('response',function(data){
+      console.log(data);
       $scope.gameBoard=data;
     });
 
@@ -16,7 +17,6 @@ app.controller('sortable', ['$scope',function($scope){
       animation: 300,
       filter: '.disabled',
       onAdd: function(evt){
-        console.log($scope.gameBoard);
         socket.emit('sort',$scope.gameBoard);
       }
     }
