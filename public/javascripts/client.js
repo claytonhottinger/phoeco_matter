@@ -2,7 +2,7 @@
  * Created by chottinger on 12/13/15.
  */
 var app = angular.module('spookyScarySkeleton', ['ng-sortable']);
-var socket = io('http://localhost:3000');
+var socket = io();
 app.controller('sortable', ['$scope',function($scope){
     socket.on('response',function(data){
       $scope.gameBoard=data;
