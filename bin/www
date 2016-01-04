@@ -32,9 +32,35 @@ server.on('listening', onListening);
 
 //initialize socket listening, send out board status to clients
 var io = require('socket.io').listen(server);
+var socketconnections = [];
+var gameState = [[[{url:'images/phoecologo.png'}],[],[],[],[]]];
 io.sockets.on('connection', function(socket){
+  if(socketconnections.length < 2){
+    socketconnections.push(socket.id);
+    console.log(socketconnections);
+  } else {
+    var tooManyConnections = {code: 0, message:'We\'re sorry, the room is currently full'};
+    socket.emit('oops', tooManyConnections);
+  }
   socket.on('sort', function(data){
-    io.emit('response',data);
+    console.log(socket.id);
+    if(socket.id == socketconnections[0]){
+      gameState = data;
+      io.emit('response',data);
+    } else {
+      var notYourTurn = {code: 1, message:'Wait for your turn to begin!'};
+      io.emit('response', gameState);
+      socket.emit('oops', notYourTurn);
+    }
+  });
+
+  socket.on('disconnect', function(){
+    for(var i = 0; i < socketconnections.length; i++){
+      if(socket.id == socketconnections[i]){
+        socketconnections.splice(i, 1);
+        console.log(socketconnections);
+      }
+    }
   });
 });
 
