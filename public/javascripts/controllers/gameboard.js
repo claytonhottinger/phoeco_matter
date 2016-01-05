@@ -1,5 +1,11 @@
 var socket = io.connect();
+var gameBoardWidth = 8;
+var gameBoardHeight = 6;
+
 app.controller('game', ['$scope', function($scope){
+  $scope.gameBoardWidth = arrayOfPrecedingNumbers(gameBoardWidth);
+  $scope.gameBoardHeight = arrayOfPrecedingNumbers(gameBoardHeight);
+
   socket.on('response',function(data){
     if($scope.error != 0) {
       $scope.gameBoard = data;
@@ -14,12 +20,13 @@ app.controller('game', ['$scope', function($scope){
     $scope.$apply();
   });
 
-  $scope.gameBoard= [[[{url:'images/phoecologo.png'}],[],[],[],[],[],[],[]],
-                    [[],[],[],[],[],[],[],[]],
-                    [[],[],[],[],[],[],[],[]],
-                    [[],[],[],[],[],[],[],[]],
-                    [[],[],[],[],[],[],[],[]],
-                    [[],[],[],[],[],[],[],[]]];
+  $scope.gameBoard = arrayOfEmptyArrays(gameBoardHeight, gameBoardWidth);
+
+
+
+  $scope.gameBoard[0][0]= [{url:'images/phoecologo.png'}];
+
+  console.log($scope.gameBoard);
 
   $scope.config = {
     group: 'test',
@@ -31,3 +38,25 @@ app.controller('game', ['$scope', function($scope){
     }
   }
 }]);
+
+function arrayOfEmptyArrays (height, width) {
+  var arrayOfArrays = [];
+  for(var i = 0; i<height; i++){
+    var row = [];
+    for(var j = 0; j<width; j++){
+      row.push([]);
+    }
+    arrayOfArrays.push(row);
+  }
+  return arrayOfArrays;
+}
+
+function arrayOfPrecedingNumbers (number) {
+  var i = 0;
+  var array = [];
+  while(i < number){
+    array.push(i);
+    i++;
+  }
+  return array;
+}

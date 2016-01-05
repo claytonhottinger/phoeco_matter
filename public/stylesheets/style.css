@@ -1,6 +1,34 @@
+*, *:after, *:before {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+.playArea{
+  background: url('../images/gameboard.png') no-repeat;
+  background-size: 100%;
+  width: 908px;
+  height: 908px;
+}
+
+.column {
+  width: 12.5%;
+  float: left;
+}
+
+.cf:before,
+.cf:after {
+  content: " "; /* 1 */
+  display: table; /* 2 */
+}
+
+.cf:after {
+  clear: both;
 }
 
 a {
