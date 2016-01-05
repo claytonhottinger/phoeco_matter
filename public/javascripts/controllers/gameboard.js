@@ -22,6 +22,8 @@ app.controller('game', ['$scope', function($scope){
 
   $scope.gameBoard = generateGameBoard(gameBoardHeight, gameBoardWidth);
 
+  console.log($scope.gameBoard);
+
   $scope.gameBoard[0][0]= [{url:'images/phoecologo.png'}];
 
   $scope.config = {
