@@ -3,8 +3,8 @@ var gameBoardWidth = 8;
 var gameBoardHeight = 6;
 
 app.controller('game', ['$scope', function($scope){
-  $scope.gameBoardWidth = arrayOfPrecedingNumbers(gameBoardWidth);
-  $scope.gameBoardHeight = arrayOfPrecedingNumbers(gameBoardHeight);
+  $scope.gameBoardWidth = generateGameboardIndexes(gameBoardWidth);
+  $scope.gameBoardHeight = generateGameboardIndexes(gameBoardHeight);
 
   socket.on('response',function(data){
     if($scope.error != 0) {
@@ -20,7 +20,7 @@ app.controller('game', ['$scope', function($scope){
     $scope.$apply();
   });
 
-  $scope.gameBoard = arrayOfEmptyArrays(gameBoardHeight, gameBoardWidth);
+  $scope.gameBoard = generateGameBoard(gameBoardHeight, gameBoardWidth);
 
   $scope.gameBoard[0][0]= [{url:'images/phoecologo.png'}];
 
@@ -35,7 +35,7 @@ app.controller('game', ['$scope', function($scope){
   }
 }]);
 
-function arrayOfEmptyArrays (height, width) {
+function generateGameBoard (height, width) {
   var arrayOfArrays = [];
   for(var i = 0; i<height; i++){
     var row = [];
@@ -47,7 +47,7 @@ function arrayOfEmptyArrays (height, width) {
   return arrayOfArrays;
 }
 
-function arrayOfPrecedingNumbers (number) {
+function generateGameboardIndexes (number) {
   var i = 0;
   var array = [];
   while(i < number){
