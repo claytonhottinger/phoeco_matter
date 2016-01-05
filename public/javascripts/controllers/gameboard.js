@@ -14,7 +14,12 @@ app.controller('game', ['$scope', function($scope){
     $scope.$apply();
   });
 
-  $scope.gameBoard= [[[{url:'images/phoecologo.png'}],[],[],[],[]]];
+  $scope.gameBoard= [[[{url:'images/phoecologo.png'}],[],[],[],[],[],[],[]],
+                    [[],[],[],[],[],[],[],[]],
+                    [[],[],[],[],[],[],[],[]],
+                    [[],[],[],[],[],[],[],[]],
+                    [[],[],[],[],[],[],[],[]],
+                    [[],[],[],[],[],[],[],[]]];
 
   $scope.config = {
     group: 'test',
