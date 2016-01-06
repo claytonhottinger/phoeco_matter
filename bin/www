@@ -33,10 +33,17 @@ server.on('listening', onListening);
 //initialize socket listening, send out board status to clients
 var io = require('socket.io').listen(server);
 var socketconnections = [];
-var gameState = [[[{url:'images/phoecologo.png'}],[],[],[],[]]];
+var gameState = [[[{url:'images/phoecologo.png'}],[],[],[],[]],
+  [[],[],[],[],[],[],[],[]],
+  [[],[],[],[],[],[],[],[]],
+  [[],[],[],[],[],[],[],[]],
+  [[],[],[],[],[],[],[],[]],
+  [[],[],[],[],[],[],[],[]]];
 io.sockets.on('connection', function(socket){
   if(socketconnections.length < 2){
     socketconnections.push(socket.id);
+    socket.emit('response', gameState);
+    console.log
     console.log(socketconnections);
   } else {
     var tooManyConnections = {code: 0, message:'We\'re sorry, the room is currently full'};
