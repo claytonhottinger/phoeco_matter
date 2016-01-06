@@ -16,9 +16,19 @@ body {
   height: 908px;
 }
 
-.column {
-  width: 12.5%;
+[class*='col-'] {
+  width: 10%;
   float: left;
+  height: 125px;
+  border: 2px solid black;
+}
+
+[class*='col-0'] {
+  margin-top: 20px;
+}
+
+[class*='col-3'] {
+  margin-top: 10px;
 }
 
 .cf:before,
@@ -29,15 +39,6 @@ body {
 
 .cf:after {
   clear: both;
-}
-
-a {
-  color: #00B7FF;
-}
-
-.height {
-  height: 125px;
-  border: 2px solid black;
 }
 
 img {

@@ -3,8 +3,6 @@ var gameBoardWidth = 8;
 var gameBoardHeight = 6;
 
 app.controller('game', ['$scope', function($scope){
-  $scope.gameBoardWidth = generateGameboardIndexes(gameBoardWidth);
-  $scope.gameBoardHeight = generateGameboardIndexes(gameBoardHeight);
 
   socket.on('response',function(data){
     if($scope.error != 0) {
@@ -21,8 +19,6 @@ app.controller('game', ['$scope', function($scope){
   });
 
   $scope.gameBoard = generateGameBoard(gameBoardHeight, gameBoardWidth);
-
-  console.log($scope.gameBoard);
 
   $scope.gameBoard[0][0]= [{url:'images/phoecologo.png'}];
 
@@ -47,14 +43,4 @@ function generateGameBoard (height, width) {
     arrayOfArrays.push(row);
   }
   return arrayOfArrays;
-}
-
-function generateGameboardIndexes (number) {
-  var i = 0;
-  var array = [];
-  while(i < number){
-    array.push(i);
-    i++;
-  }
-  return array;
 }
