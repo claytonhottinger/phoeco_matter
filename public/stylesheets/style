@@ -16,18 +16,15 @@ body {
   height: 908px;
 }
 
-.board {
-  margin-left: 35px;
-}
-
 [class*='col-'] {
-  width: 12%;
+  width: 10%;
   float: left;
-  height: 104px;
+  height: 105px;
+  border: 2px solid black;
 }
 
 [class*='col-0'] {
-  margin-top: 136px;
+  margin-top: 108px;
 }
 
 [class*='col-3'] {

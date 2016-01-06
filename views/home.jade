@@ -4,12 +4,11 @@ block content
   h1= title
   h2= "{{errMessage}}"
 
-  .playArea
+  .playArea(ng-if="error != 0")
 
-    .board(ng-if="error != 0")
+    .board
       -var row = 0;
       -var column = 0;
-      p= height
       while row < height
         -column = 0;
         while column < width
