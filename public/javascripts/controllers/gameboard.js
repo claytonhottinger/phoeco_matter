@@ -4,6 +4,8 @@ var gameBoardHeight = 6;
 
 app.controller('game', ['$scope', function($scope){
 
+
+
   socket.on('response',function(data){
     if($scope.error != 0) {
       $scope.gameBoard = data;
@@ -43,4 +45,10 @@ function generateGameBoard (height, width) {
     arrayOfArrays.push(row);
   }
   return arrayOfArrays;
+}
+
+function increaseResource (resource) {
+  resource++;
+
+
 }

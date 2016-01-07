@@ -10,28 +10,24 @@ body {
 }
 
 .playArea{
-  background: url('../images/gameboard.png') no-repeat;
+  background: url('../images/gameboard2.png') no-repeat;
   background-size: 100%;
   width: 908px;
-  height: 908px;
+  height: 709px;
 }
 
 .board {
-  margin-left: 35px;
+  margin-left: 18px;
 }
 
 [class*='col-'] {
-  width: 12%;
+  width: 109px;
   float: left;
-  height: 104px;
+  height: 109px;
 }
 
 [class*='col-0'] {
-  margin-top: 136px;
-}
-
-[class*='col-3'] {
-  margin-top: 11px;
+  margin-top: 27px;
 }
 
 .cf:before,
@@ -45,5 +41,5 @@ body {
 }
 
 img {
-  width: 200px;
+  width: 109px;
 }
