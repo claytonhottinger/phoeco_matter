@@ -2,7 +2,7 @@ var socket = io.connect();
 var gameBoardWidth = 8;
 var gameBoardHeight = 6;
 
-app.controller('game', ['$scope', 'resources', function($scope, resources){
+angular.module('spookyScarySkeleton').controller('game', ['$scope','resources', function($scope, resources){
   /**
    * When the server sends the gamestate (via web sockets) to a client, if it is not in an error state, update the gameboard
    */
