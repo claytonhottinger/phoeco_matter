@@ -30,15 +30,25 @@ server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
 
-//initialize socket listening, send out board status to clients
+/**
+ * initialize socket listening, send out board status to clients
+ */
+
 var io = require('socket.io').listen(server);
 var socketconnections = [];
+/**
+ *initial board state as represented by an array (length 6) of arrays (length 8)
+ */
 var gameState = [[[{url:'images/phoecologo.png'}],[],[],[],[],[],[],[]],
   [[],[],[],[],[],[],[],[]],
   [[],[],[],[],[],[],[],[]],
   [[],[],[],[],[],[],[],[]],
   [[],[],[],[],[],[],[],[]],
   [[],[],[],[],[],[],[],[]]];
+/**
+ *when a client connects, add its socket id to an array and send the game state to the client
+ *If that array already has two socket id's, send the client an error
+ */
 io.sockets.on('connection', function(socket){
   if(socketconnections.length < 2){
     socketconnections.push(socket.id);
@@ -47,6 +57,11 @@ io.sockets.on('connection', function(socket){
     var tooManyConnections = {code: 0, message:'We\'re sorry, the room is currently full'};
     socket.emit('oops', tooManyConnections);
   }
+
+/**When the card is moved on a client, check to see if their socket id matches the first client to connect
+ *If yes, then set the game state array to the one they sent, then send that updated gamestate to all clients
+ *If no, send the client an error and the current gamestate to all clients
+ */
   socket.on('sort', function(data){
     console.log(socket.id);
     if(socket.id == socketconnections[0]){
@@ -58,7 +73,9 @@ io.sockets.on('connection', function(socket){
       socket.emit('oops', notYourTurn);
     }
   });
-
+/**
+ *When a client disconnects from the server, remove that client's socket id from the array
+ */
   socket.on('disconnect', function(){
     for(var i = 0; i < socketconnections.length; i++){
       if(socket.id == socketconnections[i]){
