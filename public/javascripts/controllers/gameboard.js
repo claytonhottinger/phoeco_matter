@@ -1,15 +1,14 @@
-var socket = io.connect();
 var gameBoardWidth = 8;
 var gameBoardHeight = 6;
 
-angular.module('spookyScarySkeleton').controller('game', ['$scope','resources', function($scope, resources){
+app.controller('game', ['$scope','resources', 'socket',
+  function($scope, resources, socket){
   /**
    * When the server sends the gamestate (via web sockets) to a client, if it is not in an error state, update the gameboard
    */
   socket.on('response',function(data){
     if($scope.error != 0) {
       $scope.gameBoard = data;
-      $scope.$apply();
     }
   });
   /**
@@ -17,9 +16,7 @@ angular.module('spookyScarySkeleton').controller('game', ['$scope','resources', 
    */
   socket.on('oops', function(data){
     $scope.error = data.code;
-    console.log(data.code);
     $scope.errMessage = data.message;
-    $scope.$apply();
   });
   /**
    * Call the function to generate the array of arrays that represent the gameboard,
@@ -39,6 +36,7 @@ angular.module('spookyScarySkeleton').controller('game', ['$scope','resources', 
     animation: 300,
     filter: '.disabled',
     onAdd: function(evt){
+      console.log(socket.id());
       socket.emit('sort',$scope.gameBoard);
     }
   }

@@ -26,6 +26,9 @@ block content
         .cf
         -row++
 
-    .other
-      p(ng-model="command" class="command")
-      p(ng-model="mana" class="mana")
+  .other(ng-controller="players")
+    p(class="command") {{playerOne.command}}/{{playerOne.maxCommand}}
+    button(ng-click="incrementP1Command()") Increment Command
+    p(class="mana") {{playerOne.mana}}/{{playerOne.maxMana}}
+    button(ng-click="incrementP1Mana()") Increment Mana
+    p(class="life") {{playerOne.life}}/30

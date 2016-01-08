@@ -45,6 +45,21 @@ var gameState = [[[{url:'images/phoecologo.png'}],[],[],[],[],[],[],[]],
   [[],[],[],[],[],[],[],[]],
   [[],[],[],[],[],[],[],[]],
   [[],[],[],[],[],[],[],[]]];
+
+var playerOneResources = {
+  life: 30,
+  command: 0,
+  maxCommand: 0,
+  mana: 0,
+  maxMana: 0
+};
+var playerTwoResources = {
+  life: 30,
+  command: 0,
+  maxCommand: 0,
+  mana: 0,
+  maxMana: 0
+};
 /**
  *when a client connects, add its socket id to an array and send the game state to the client
  *If that array already has two socket id's, send the client an error
@@ -62,16 +77,27 @@ io.sockets.on('connection', function(socket){
  *If yes, then set the game state array to the one they sent, then send that updated gamestate to all clients
  *If no, send the client an error and the current gamestate to all clients
  */
+  var notYourTurn = {code: 1, message:'Wait for your turn to begin!'};
   socket.on('sort', function(data){
     console.log(socket.id);
     if(socket.id == socketconnections[0]){
       gameState = data;
       io.emit('response',data);
     } else {
-      var notYourTurn = {code: 1, message:'Wait for your turn to begin!'};
       io.emit('response', gameState);
       socket.emit('oops', notYourTurn);
     }
+  });
+
+  socket.on('resource', function(data){
+    if(socket.id == socketconnections[0]){
+      playerOneResources = data;
+      io.emit('resourceResponse', playerOneResources);
+    } else {
+      io.emit('resourceResponse', playerOneResources);
+      socket.emit('oops', notYourTurn);
+    }
+
   });
 /**
  *When a client disconnects from the server, remove that client's socket id from the array

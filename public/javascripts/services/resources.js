@@ -2,7 +2,7 @@
  * Created by chottinger on 1/7/16.
  */
 
-angular.module('spookyScarySkeleton').service('resources', [function(){
+app.factory('resources', [function(){
   var playerOne = {
     life: 30,
     command: 0,

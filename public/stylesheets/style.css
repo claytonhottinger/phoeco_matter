@@ -14,6 +14,8 @@ body {
   background-size: 100%;
   width: 908px;
   height: 709px;
+  float: left;
+  margin-right: 50px;
 }
 
 .board {
@@ -42,4 +44,20 @@ body {
 
 img {
   width: 109px;
+}
+
+p {
+  font-size: 30px;
+}
+
+.life {
+  color: red;
+}
+
+.command {
+  color: gold;;
+}
+
+.mana {
+  color: dodgerblue;
 }
