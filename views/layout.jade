@@ -9,10 +9,12 @@ html(ng-app="spookyScarySkeleton")
     script(src='vendors/sortablejs/ng-sortable.js')
     script(src='socket.io/socket.io.js')
     script(src='javascripts/client.js')
+    script(src='javascripts/controllers/errorController.js')
     script(src='javascripts/controllers/gameboard.js')
     script(src='javascripts/controllers/players.js')
     script(src='javascripts/services/resources.js')
     script(src='javascripts/services/socket.js')
+    script(src='javascripts/services/error.js')
 
-  body(ng-controller="game")
+  body(ng-controller="errorController")
     block content

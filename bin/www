@@ -69,15 +69,13 @@ io.sockets.on('connection', function(socket){
     socketconnections.push(socket.id);
     socket.emit('response', gameState);
   } else {
-    var tooManyConnections = {code: 0, message:'We\'re sorry, the room is currently full'};
-    socket.emit('oops', tooManyConnections);
+    socket.emit('oops', 2);
   }
 
 /**When the card is moved on a client, check to see if their socket id matches the first client to connect
  *If yes, then set the game state array to the one they sent, then send that updated gamestate to all clients
  *If no, send the client an error and the current gamestate to all clients
  */
-  var notYourTurn = {code: 1, message:'Wait for your turn to begin!'};
   socket.on('sort', function(data){
     console.log(socket.id);
     if(socket.id == socketconnections[0]){
@@ -85,7 +83,15 @@ io.sockets.on('connection', function(socket){
       io.emit('response',data);
     } else {
       io.emit('response', gameState);
-      socket.emit('oops', notYourTurn);
+      socket.emit('oops', 1);
+    }
+  });
+
+  socket.on('isItMyTurn?', function(){
+    if(socket.id == socketconnections[0]){
+      socket.emit('isItMyTurn?', true);
+    } else {
+      socket.emit('isItMyTurn?', false);
     }
   });
 
@@ -95,7 +101,7 @@ io.sockets.on('connection', function(socket){
       io.emit('resourceResponse', playerOneResources);
     } else {
       io.emit('resourceResponse', playerOneResources);
-      socket.emit('oops', notYourTurn);
+      socket.emit('oops', 1);
     }
 
   });

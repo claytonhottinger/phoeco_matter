@@ -1,12 +1,12 @@
 extends layout
 
 block content
-  h1= title
-  h2= "{{errMessage}}"
+  .error
+    h1= title
 
-  .playArea(ng-if="error != 0")
+  .playArea(ng-if="error.code != 2")
 
-    .board
+    .board(ng-controller="game")
       //height and width are passed to the template in home.js route
         while loops produce the 48 divs that make up the gameboard
       -var row = 0;
@@ -26,9 +26,9 @@ block content
         .cf
         -row++
 
-  .other(ng-controller="players")
-    p(class="command") {{playerOne.command}}/{{playerOne.maxCommand}}
-    button(ng-click="incrementP1Command()") Increment Command
-    p(class="mana") {{playerOne.mana}}/{{playerOne.maxMana}}
-    button(ng-click="incrementP1Mana()") Increment Mana
-    p(class="life") {{playerOne.life}}/30
+    .other(ng-controller="players")
+      p(class="command") {{playerOne.command}}/{{playerOne.maxCommand}}
+      button(ng-click="incrementP1Command()") Increment Command
+      p(class="mana") {{playerOne.mana}}/{{playerOne.maxMana}}
+      button(ng-click="incrementP1Mana()") Increment Mana
+      p(class="life") {{playerOne.life}}/30

@@ -9,17 +9,13 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
-.playArea{
+.board{
   background: url('../images/gameboard2.png') no-repeat;
   background-size: 100%;
   width: 908px;
   height: 709px;
   float: left;
-  margin-right: 50px;
-}
-
-.board {
-  margin-left: 18px;
+  padding-left: 18px;
 }
 
 [class*='col-'] {

@@ -26,9 +26,9 @@ app.factory('socket',['$rootScope', function($rootScope){
     },
     id: function(){
       return socket.id;
+    },
+    authenticate: function(){
+      socket.emit('isItMyTurn?');
     }
-    //authenticate: function(){
-    //  socket.emit()
-    //}
   }
 }]);
