@@ -1,0 +1,82 @@
+[
+  {
+    "title": "Veteran Caravan Guard (R)",
+    "tier": 3,
+    "command": 7,
+    "mana": 5,
+    "force": 5,
+    "minRange": 0,
+    "maxRange": 0,
+    "health": 10,
+    "move": 1,
+    "armor": [
+      0, 1, 1, 1, 0, 2, 0, 0
+    ],
+    "url": "images/cards/veterancaravanguardr.jpg",
+    "playable": "not"
+  },
+  {
+    "title": "Lightning Exarch",
+    "tier": 2,
+    "command": 4,
+    "mana": 3,
+    "force": 0,
+    "minRange": 1,
+    "maxRange": 2,
+    "health": 6,
+    "move": 1,
+    "armor": [
+      0, 0, 0, 2, 0, 2, 0, 2
+    ],
+    "url": "images/cards/lightningexarch.jpg",
+    "playable": "not"
+  },
+  {
+    "title": "Khir Sureshot",
+    "tier": 1,
+    "command": 2,
+    "mana": 2,
+    "force": 2,
+    "minRange": 2,
+    "maxRange": 2,
+    "health": 5,
+    "move": 2,
+    "armor": [
+      0, 0, 0, 2, 0, 2, 0, 2
+    ],
+    "url": "images/cards/khirsureshot.jpg",
+    "playable": "not"
+  },
+  {
+    "title": "Jizo Druidess",
+    "tier": 3,
+    "command": 9,
+    "mana": 8,
+    "force": 4,
+    "minRange": 1,
+    "maxRange": 2,
+    "health": 14,
+    "move": 2,
+    "armor": [
+      1, 0, 1, 0, 1, 2, 1, 0
+    ],
+    "url": "images/cards/jizodruidess.jpg",
+    "playable": "not"
+  },
+  {
+    "title": "Four Tails Flame Captain (R)",
+    "tier": 2,
+    "command": 4,
+    "mana": 2,
+    "force": 3,
+    "minRange": 2,
+    "maxRange": 2,
+    "health": 5,
+    "move": 1,
+    "armor": [
+      0, 0, 0, 2, 0, 2, 0, 2
+    ],
+    "url": "images/cards/fourtailsflamecaptainr.jpg",
+    "playable": "not"
+  }
+]

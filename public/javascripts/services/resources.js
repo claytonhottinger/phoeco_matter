@@ -70,10 +70,8 @@ app.factory('resources', [function(){
     spendMana: function(amount,playerNumber){
       if(playerNumber < 2){
         playerOne.mana -= amount;
-        playerOne.maxMana -= amount;
       } else {
         playerTwo.mana -= amount;
-        playerTwo.maxMana -= amount;
       }
     },
     replenishMana: function(playerNumber){
@@ -81,6 +79,13 @@ app.factory('resources', [function(){
         playerOne.mana = playerOne.maxMana;
       } else {
         playerTwo.mana = playerTwo.maxMana;
+      }
+    },
+    checkCosts: function(card, playerNumber){
+      if(playerNumber < 2){
+        return card.command <= playerOne.command && card.mana <= playerOne.mana
+      } else {
+        return card.command <= playerTwo.command && card.mana <= playerTwo.mana
       }
     }
   }

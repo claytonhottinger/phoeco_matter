@@ -7,7 +7,7 @@
 var app = require('../app');
 var debug = require('debug')('phoeco_matter:server');
 var http = require('http');
-
+var playerOneHand = require('../public/data/cards.json');
 
 /**
  * Get port from environment and store in Express.
@@ -39,7 +39,7 @@ var socketconnections = [];
 /**
  *initial board state as represented by an array (length 6) of arrays (length 8)
  */
-var gameState = [[[{url:'images/phoecologo.png'}],[],[],[],[],[],[],[]],
+var gameState = [[[],[],[],[],[],[],[],[]],
   [[],[],[],[],[],[],[],[]],
   [[],[],[],[],[],[],[],[]],
   [[],[],[],[],[],[],[],[]],
@@ -68,6 +68,7 @@ io.sockets.on('connection', function(socket){
   if(socketconnections.length < 2){
     socketconnections.push(socket.id);
     socket.emit('response', gameState);
+    socket.emit('p1HandResponse', playerOneHand);
   } else {
     socket.emit('oops', 2);
   }
@@ -77,7 +78,6 @@ io.sockets.on('connection', function(socket){
  *If no, send the client an error and the current gamestate to all clients
  */
   socket.on('sort', function(data){
-    console.log(socket.id);
     if(socket.id == socketconnections[0]){
       gameState = data;
       io.emit('response',data);

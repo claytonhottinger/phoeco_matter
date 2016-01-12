@@ -15,13 +15,13 @@ block content
         -column = 0;
         while column < width
           //unique classes needed for fitting grid to the gameboard image
-          div(ng-sortable="config" class="col-#{row}-#{column} height")
+          div(ng-sortable="config" class="col-#{row}-#{column}")
             //ng-sortable(sortable.js) works by hiding an element when the corresponding array is empty
               gameBoard is an array of arrays (AoA), all of which are empty except when occupied by a "card,"
               this card is an array with one member: an object with the property 'url.' Each index of
               the AoA needs a div for the card to be dragged into, which needs to reference
               the right index in the AoA. Hence the need for the jade templating within the "ng-repeat"
-            img(class="img-responsive" ng-repeat="card in gameBoard[#{row}][#{column}]" src="{{card.url}}")
+            img(ng-repeat="card in gameBoard[#{row}][#{column}]" src="{{card.url}}")
           -column++
         .cf
         -row++
@@ -32,3 +32,6 @@ block content
       p(class="mana") {{playerOne.mana}}/{{playerOne.maxMana}}
       button(ng-click="incrementP1Mana()") Increment Mana
       p(class="life") {{playerOne.life}}/30
+
+      div(ng-sortable="handConfig")
+        img(ng-repeat="card in playerOneHand" ng-mousedown="isPlayable(card)" src="{{card.url}}" class="{{card.playable}}")

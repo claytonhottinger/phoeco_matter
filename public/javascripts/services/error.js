@@ -5,7 +5,8 @@ app.factory('error', function(){
   var errorCode = 0;
   var errorMessage = ['',
     'Please wait for your turn to begin',
-    'Sorry, the room is full right now'];
+    'Sorry, the room is full right now',
+    'You\'ve not enough resources'];
   return {
     getError: function (){
       return {code: errorCode, message: errorMessage[errorCode]};

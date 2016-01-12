@@ -3,15 +3,17 @@ var gameBoardHeight = 6;
 
 app.controller('game', ['$scope','resources', 'socket', 'error',
   function($scope, resources, socket, error){
-  /**
-   * When the server sends the gamestate (via web sockets) to a client, if it is not in an error state, update the gameboard
-   */
+
 
   socket.authenticate();
 
   socket.on('isItYourTurn?', function(data) {
     $scope.yourTurn = data;
   });
+
+  /**
+   * When the server sends the gamestate (via web sockets) to a client, if it is not in an error state, update the gameboard
+   */
 
   socket.on('response',function(data){
     if(error.getError().code != 2) {

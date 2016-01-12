@@ -40,6 +40,11 @@ body {
 
 img {
   width: 109px;
+  transition: width .5s 1s;
+}
+
+img:hover {
+  width: 350px;
 }
 
 p {
@@ -56,4 +61,8 @@ p {
 
 .mana {
   color: dodgerblue;
+}
+
+.playable {
+  border: 2px solid green;
 }
