@@ -19,9 +19,12 @@ app.controller('players',['$scope','resources', 'socket', 'error',
     animation: 300,
     filter: '.not',
     onRemove: function(evt){
+      console.log(evt)
       resources.spendCommand(evt.model.command, 1);
       resources.spendMana(evt.model.mana, 1);
       $scope.playerOne = resources.getResources(1);
+      socket.emit('resource', $scope.playerOne);
+      socket.emit('p1Hand', $scope.playerOneHand);
     }
   };
 

@@ -27,8 +27,6 @@ app.controller('game', ['$scope','resources', 'socket', 'error',
    */
   $scope.gameBoard = generateGameBoard(gameBoardHeight, gameBoardWidth);
 
-  $scope.gameBoard[0][0]= [{url:'images/phoecologo.png'}];
-
   /**
    * Configuration object for ng-sortable
    * When a card is added to a div (when it's moved), send the new game state to the server
@@ -39,6 +37,7 @@ app.controller('game', ['$scope','resources', 'socket', 'error',
     animation: 300,
     filter: '.disabled',
     onAdd: function(evt){
+      console.log(evt);
       socket.emit('sort',$scope.gameBoard);
     }
   }

@@ -87,6 +87,11 @@ io.sockets.on('connection', function(socket){
     }
   });
 
+  socket.on('p1Hand', function(data){
+    playerOneHand = data;
+    io.emit('p1HandResponse', playerOneHand);
+  });
+
   socket.on('isItMyTurn?', function(){
     if(socket.id == socketconnections[0]){
       socket.emit('isItMyTurn?', true);
