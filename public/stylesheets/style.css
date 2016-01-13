@@ -40,11 +40,15 @@ body {
 
 img {
   width: 109px;
-  transition: width .5s 1s;
+  position: relative;
+  transition: all .5s 1s;
+  z-index: 10;
 }
 
 img:hover {
+  position: relative;
   width: 350px;
+  z-index: 900;
 }
 
 p {

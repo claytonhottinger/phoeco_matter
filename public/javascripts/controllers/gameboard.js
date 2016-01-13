@@ -4,13 +4,6 @@ var gameBoardHeight = 6;
 app.controller('game', ['$scope','resources', 'socket', 'error',
   function($scope, resources, socket, error){
 
-
-  socket.authenticate();
-
-  socket.on('isItYourTurn?', function(data) {
-    $scope.yourTurn = data;
-  });
-
   /**
    * When the server sends the gamestate (via web sockets) to a client, if it is not in an error state, update the gameboard
    */
@@ -22,8 +15,8 @@ app.controller('game', ['$scope','resources', 'socket', 'error',
   });
 
   /**
-   * Call the function to generate the array of arrays that represent the gameboard,
-   * place a card in the top left corner
+   * Call the function to generate the array of arrays that represents the gameboard,
+   *
    */
   $scope.gameBoard = generateGameBoard(gameBoardHeight, gameBoardWidth);
 

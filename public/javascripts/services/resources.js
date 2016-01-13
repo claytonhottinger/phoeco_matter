@@ -2,6 +2,12 @@
  * Created by chottinger on 1/7/16.
  */
 
+/**
+ * Service for managing resources. Stores two objects that represent each player's resource totals
+ * Provides several methods for incrementing and spending those resources, using
+ * @param playerNumber to determine whose resources to affect
+ */
+
 app.factory('resources', [function(){
   var playerOne = {
     life: 30,
