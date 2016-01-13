@@ -87,6 +87,29 @@ io.sockets.on('connection', function(socket){
     }
   });
 
+  socket.on('newCard', function(data){
+    for(var i = 0; i< data.length; i++){
+      console.log(data[i]);
+      data[i].forEach(function(element) {
+        if (element[0]) {
+
+          if (element[0].fromHand && i == 5) {
+            console.log('homerow');
+            element[0].fromHand = 0;
+            gameState = data;
+            io.emit('response', data);
+            return
+          } else if (element[0].fromHand) {
+            console.log('not homerow')
+            io.emit('response', gameState);
+            socket.emit('oops', 4);
+            return
+          }
+        }
+      });
+    }
+  });
+
   socket.on('p1Hand', function(data){
     playerOneHand = data;
     io.emit('p1HandResponse', playerOneHand);

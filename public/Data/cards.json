@@ -13,7 +13,8 @@
       0, 1, 1, 1, 0, 2, 0, 0
     ],
     "url": "images/cards/veterancaravanguardr.jpg",
-    "playable": "not"
+    "playable": "not",
+    "fromHand": 1
   },
   {
     "title": "Lightning Exarch",
@@ -29,7 +30,8 @@
       0, 0, 0, 2, 0, 2, 0, 2
     ],
     "url": "images/cards/lightningexarch.jpg",
-    "playable": "not"
+    "playable": "not",
+    "fromHand": 1
   },
   {
     "title": "Khir Sureshot",
@@ -45,7 +47,8 @@
       0, 0, 0, 2, 0, 2, 0, 2
     ],
     "url": "images/cards/khirsureshot.jpg",
-    "playable": "not"
+    "playable": "not",
+    "fromHand": 1
   },
   {
     "title": "Jizo Druidess",
@@ -61,7 +64,8 @@
       1, 0, 1, 0, 1, 2, 1, 0
     ],
     "url": "images/cards/jizodruidess.jpg",
-    "playable": "not"
+    "playable": "not",
+    "fromHand": 1
   },
   {
     "title": "Four Tails Flame Captain (R)",
@@ -77,6 +81,7 @@
       0, 0, 0, 2, 0, 2, 0, 2
     ],
     "url": "images/cards/fourtailsflamecaptainr.jpg",
-    "playable": "not"
+    "playable": "not",
+    "fromHand": 1
   }
 ]

@@ -30,8 +30,12 @@ app.controller('game', ['$scope','resources', 'socket', 'error',
     animation: 300,
     filter: '.disabled',
     onAdd: function(evt){
-      console.log(evt);
-      socket.emit('sort',$scope.gameBoard);
+      if(evt.model.fromHand){
+        socket.emit('newCard', $scope.gameBoard);
+      } else {
+        socket.emit('sort',$scope.gameBoard);
+      }
+
     }
   }
 }]);
