@@ -7,6 +7,7 @@
 var app = require('../app');
 var debug = require('debug')('phoeco_matter:server');
 var http = require('http');
+//initial player hand
 var playerOneHand = require('../public/data/cards.json');
 
 /**
@@ -46,6 +47,11 @@ var gameState = [[[],[],[],[],[],[],[],[]],
   [[],[],[],[],[],[],[],[]],
   [[],[],[],[],[],[],[],[]]];
 
+/**
+ * Initial player resources
+ * @type {{life: number, command: number, maxCommand: number, mana: number, maxMana: number}}
+ */
+
 var playerOneResources = {
   life: 30,
   command: 0,
@@ -69,6 +75,7 @@ io.sockets.on('connection', function(socket){
     socketconnections.push(socket.id);
     socket.emit('response', gameState);
     socket.emit('p1HandResponse', playerOneHand);
+    socket.emit('resourceResponse', playerOneResources);
   } else {
     socket.emit('oops', 2);
   }
@@ -86,7 +93,11 @@ io.sockets.on('connection', function(socket){
       socket.emit('oops', 1);
     }
   });
-
+  /**
+   * When a new card is played to the board, iterate through the received gameboard data to find where it has been played
+   * If the new card was played on the homerow (data.gameBoard[5]), send the new game data to the clients.
+   * If the new card was not played on the homerow, send the correct game data to the clients, along with an error
+   */
   socket.on('newCard', function(data){
     for(var i = 0; i< data.gameBoard.length; i++){
       console.log(data.gameBoard[i]);

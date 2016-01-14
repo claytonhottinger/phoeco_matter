@@ -11,9 +11,8 @@ app.controller('players',['$scope','resources', 'socket', 'error',
   //gets the resource object from the service for use on the scope
   $scope.playerOne = resources.getResources(1);
 
-
+  //updates resources when the server has validated a card played from the hand
   socket.on('newCardResponse', function(data){
-    console.log(data);
     resources.spendCommand(data.command, 1);
     resources.spendMana(data.mana, 1);
     //reset the scope's resource variable

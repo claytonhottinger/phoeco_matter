@@ -55,16 +55,22 @@ p {
   font-size: 30px;
 }
 
+.hand {
+  float: left;
+}
+
 .life {
   color: red;
 }
 
 .command {
-  color: gold;;
+  color: gold;
+  float: left;
 }
 
 .mana {
   color: dodgerblue;
+  float: left;
 }
 
 .playable {

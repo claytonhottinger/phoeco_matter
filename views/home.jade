@@ -26,12 +26,22 @@ block content
         .cf
         -row++
 
-    .other(ng-controller="players")
-      p(class="command") {{playerOne.command}}/{{playerOne.maxCommand}}
-      button(ng-click="incrementP1Command()") Increment Command
-      p(class="mana") {{playerOne.mana}}/{{playerOne.maxMana}}
-      button(ng-click="incrementP1Mana()") Increment Mana
-      p(class="life") {{playerOne.life}}/30
+    .cf
 
-      div(ng-sortable="handConfig")
+    .other(ng-controller="players")
+
+      div(ng-sortable="handConfig" class="hand")
         img(ng-repeat="card in playerOneHand" ng-mousedown="isPlayable(card)" src="{{card.url}}" class="{{card.playable}}")
+
+      .cf
+
+
+      .resources
+        .command
+          p {{playerOne.command}}/{{playerOne.maxCommand}}
+          button(ng-click="incrementP1Command()") Increment Command
+        .mana
+          p {{playerOne.mana}}/{{playerOne.maxMana}}
+          button(ng-click="incrementP1Mana()") Increment Mana
+        .life
+          p {{playerOne.life}}/30
