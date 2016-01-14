@@ -12,6 +12,15 @@ app.controller('players',['$scope','resources', 'socket', 'error',
   $scope.playerOne = resources.getResources(1);
 
 
+  socket.on('newCardResponse', function(data){
+    console.log(data);
+    resources.spendCommand(data.command, 1);
+    resources.spendMana(data.mana, 1);
+    //reset the scope's resource variable
+    $scope.playerOne = resources.getResources(1);
+    socket.emit('resource', $scope.playerOne);
+  });
+
   //when the server sends the player's hand, store it on the scope for display
   socket.on('p1HandResponse', function(data){
     $scope.playerOneHand = data;
@@ -25,18 +34,7 @@ app.controller('players',['$scope','resources', 'socket', 'error',
     sortable: false,
     animation: 300,
     //filter is a selector used to disable click and drag on objects with the "not" class
-    filter: '.not',
-    onRemove: function(evt){
-      console.log(evt);
-      //when an object is removed from the hand, spend the proper resources based on the card dragged
-      resources.spendCommand(evt.model.command, 1);
-      resources.spendMana(evt.model.mana, 1);
-      //reset the scope's resource variable
-      $scope.playerOne = resources.getResources(1);
-      //send the updated resources and hand to the server for it to update other clients
-      socket.emit('resource', $scope.playerOne);
-      socket.emit('p1Hand', $scope.playerOneHand);
-    }
+    filter: '.not'
   };
 
   //update the scope when the server sends a resource update to the client

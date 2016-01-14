@@ -31,7 +31,9 @@ app.controller('game', ['$scope','resources', 'socket', 'error',
     filter: '.disabled',
     onAdd: function(evt){
       if(evt.model.fromHand){
-        socket.emit('newCard', $scope.gameBoard);
+        var gameBoardAndPrevIndex = {gameBoard: $scope.gameBoard,
+        prevIndex: evt.oldIndex};
+        socket.emit('newCard', gameBoardAndPrevIndex);
       } else {
         socket.emit('sort',$scope.gameBoard);
       }
