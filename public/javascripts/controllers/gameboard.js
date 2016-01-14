@@ -30,6 +30,7 @@ app.controller('game', ['$scope','resources', 'socket', 'error',
     animation: 300,
     filter: '.disabled',
     onAdd: function(evt){
+      console.log(evt);
       if(evt.model.fromHand){
         var gameBoardAndPrevIndex = {gameBoard: $scope.gameBoard,
         prevIndex: evt.oldIndex};

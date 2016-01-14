@@ -23,7 +23,6 @@ app.controller('players',['$scope','resources', 'socket', 'error',
   //when the server sends the player's hand, store it on the scope for display
   socket.on('p1HandResponse', function(data){
     $scope.playerOneHand = data;
-    //$scope.playerOneHand.forEach($scope.isPlayable);
   });
 
   //hand config object for sortable.js.

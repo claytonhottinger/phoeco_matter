@@ -66,6 +66,9 @@ var playerTwoResources = {
   mana: 0,
   maxMana: 0
 };
+
+var activeCardID = 0;
+var activeCards = [];
 /**
  *when a client connects, add its socket id to an array and send the game state to the client
  *If that array already has two socket id's, send the client an error
@@ -86,8 +89,31 @@ io.sockets.on('connection', function(socket){
  */
   socket.on('sort', function(data){
     if(socket.id == socketconnections[0]){
-      gameState = data;
-      io.emit('response',data);
+      for(var i = 0; i<data.length; i++){
+        data[i].forEach(function(element,index){
+          if(element[0]) {
+            for (var j = 0; j < activeCards.length; j++) {
+              if (activeCards[j].ID === element[0].ID) {
+                console.log(index, i);
+                console.log(activeCards[j].move);
+                if (Math.abs(activeCards[j].row - i) <= activeCards[j].move
+                  && Math.abs(activeCards[j].column - index) <= activeCards[j].move) {
+                  activeCards[j].row = i;
+                  activeCards[j].column = index;
+                  gameState = data;
+                  io.emit('response', data);
+                  return
+                } else {
+                  io.emit('response', gameState);
+                  socket.emit('oops', 5);
+                  return
+                }
+              }
+            }
+          }
+        });
+      }
+
     } else {
       io.emit('response', gameState);
       socket.emit('oops', 1);
@@ -99,19 +125,30 @@ io.sockets.on('connection', function(socket){
    * If the new card was not played on the homerow, send the correct game data to the clients, along with an error
    */
   socket.on('newCard', function(data){
+    //for loop iterates through each row of the gameboard sent from the client
     for(var i = 0; i< data.gameBoard.length; i++){
-      console.log(data.gameBoard[i]);
-      data.gameBoard[i].forEach(function(element) {
+      //forEach goes through the current row of the gameboard
+      data.gameBoard[i].forEach(function(element, index) {
+        //if the space in the iteration is occupied by a card
         if (element[0]) {
+          //if the fromHand property is not 0 and the current row is 5 (the homerow)
           if (element[0].fromHand && i == 5) {
             element[0].fromHand = 0;
+            element[0].row = 5;
+            element[0].column = index;
+            element[0].ID = activeCardID;
+            activeCardID++;
+            activeCards.push(element[0]);
+            //remove the corresponding card from the hand
             var playedCard = playerOneHand.splice(data.prevIndex, 1);
-            console.log(playedCard);
+            //set the gameboard to what the client sent
             gameState = data.gameBoard;
+            //send the played card, the new player hand, and the gameboard to all clients, and stop the iteration
             io.emit('newCardResponse', playedCard[0]);
             io.emit('p1HandResponse', playerOneHand);
             io.emit('response', data.gameBoard);
             return
+            //if the card is found not on the homerow, send an error and gamestate data
           } else if (element[0].fromHand) {
             io.emit('p1HandResponse', playerOneHand);
             io.emit('response', gameState);
