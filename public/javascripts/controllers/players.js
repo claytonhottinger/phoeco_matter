@@ -6,8 +6,8 @@
  * controller for everything not on the gameboard
  */
 
-app.controller('players',['$scope','resources', 'socket', 'error',
-  function($scope, resources, socket, error){
+app.controller('players',['$scope','$mdToast','resources', 'socket', 'error',
+  function($scope, $mdToast, resources, socket, error){
   //gets the resource object from the service for use on the scope
   $scope.playerOne = resources.getResources(1);
 
@@ -43,9 +43,7 @@ app.controller('players',['$scope','resources', 'socket', 'error',
   //If the client is the active player, use the resource service to increment the command, update the scope, and send
   //the new resources to the server for relay to the other client. Alert an error message otherwise
   $scope.incrementP1Command = function(){
-    if(error.getError().code == 1) {
-      alert(error.getError().message);
-    } else {
+    if(error.getError().code != 1) {
       resources.incrementCommand(1);
       $scope.playerOne = resources.getResources(1);
       socket.emit('resource', $scope.playerOne);
@@ -53,9 +51,7 @@ app.controller('players',['$scope','resources', 'socket', 'error',
   };
   //Same as above, except for mana
   $scope.incrementP1Mana = function(){
-    if(error.getError().code == 1) {
-      alert(error.getError().message);
-    } else {
+    if(error.getError().code != 1) {
       resources.incrementMana(1);
       $scope.playerOne = resources.getResources(1);
       socket.emit('resource', $scope.playerOne);
@@ -66,14 +62,15 @@ app.controller('players',['$scope','resources', 'socket', 'error',
   //If so, the card's playable property (the element's class) will be changed from 'not' (the sortable.js filter),
   // allowing it to be dragged from the hand. If the card is not playable or it is not that player's turn, fire an alert
   $scope.isPlayable = function(card){
-    if(error.getError().code == 1) {
-      alert(error.getError().message)
-    } else if (resources.checkCosts(card, 1)) {
-      card.playable = 'playable';
-    } else {
-      error.setError(3);
-      alert(error.getError().message);
-    }
+    socket.emit('cardPlayable', card);
+    //if(error.getError().code == 1) {
+    //  alert(error.getError().message)
+    //} else if (resources.checkCosts(card, 1)) {
+    //  card.playable = 'playable';
+    //} else {
+    //  error.setError(3);
+    //  alert(error.getError().message);
+    //}
   }
 
 

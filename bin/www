@@ -173,6 +173,23 @@ io.sockets.on('connection', function(socket){
     }
   });
 
+  socket.on('cardPlayable', function(data){
+    if(socket.id == socketconnections[0]){
+      if(data.mana <= playerOneResources.mana && data.command <= playerOneResources.command){
+        for(var i = 0; i < playerOneHand.length; i++){
+          if(playerOneHand[i].title === data.title){
+            playerOneHand[i].playable = 'playable';
+            socket.emit('p1HandResponse', playerOneHand);
+          }
+        }
+      } else {
+        socket.emit('oops', 3);
+      }
+    } else {
+      socket.emit('oops', 1);
+    }
+  });
+
   socket.on('resource', function(data){
     if(socket.id == socketconnections[0]){
       playerOneResources = data;
