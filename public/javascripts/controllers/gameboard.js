@@ -10,6 +10,7 @@ app.controller('game', ['$scope','resources', 'socket', 'error',
 
   socket.on('response',function(data){
     if(error.getError().code != 2) {
+      console.log('gameboard update');
       $scope.gameBoard = data;
     }
   });
@@ -30,12 +31,13 @@ app.controller('game', ['$scope','resources', 'socket', 'error',
     animation: 300,
     filter: '.disabled',
     onAdd: function(evt){
-      console.log(evt);
       if(evt.model.fromHand){
         var gameBoardAndPrevIndex = {gameBoard: $scope.gameBoard,
         prevIndex: evt.oldIndex};
+        console.log('new card');
         socket.emit('newCard', gameBoardAndPrevIndex);
       } else {
+        console.log('card move');
         socket.emit('sort',$scope.gameBoard);
       }
 

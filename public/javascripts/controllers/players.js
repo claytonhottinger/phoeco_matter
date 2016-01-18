@@ -6,8 +6,8 @@
  * controller for everything not on the gameboard
  */
 
-app.controller('players',['$scope','$mdToast','resources', 'socket', 'error',
-  function($scope, $mdToast, resources, socket, error){
+app.controller('players',['$scope','resources', 'socket', 'error',
+  function($scope, resources, socket, error){
   //gets the resource object from the service for use on the scope
   $scope.playerOne = resources.getResources(1);
 
@@ -62,15 +62,15 @@ app.controller('players',['$scope','$mdToast','resources', 'socket', 'error',
   //If so, the card's playable property (the element's class) will be changed from 'not' (the sortable.js filter),
   // allowing it to be dragged from the hand. If the card is not playable or it is not that player's turn, fire an alert
   $scope.isPlayable = function(card){
-    socket.emit('cardPlayable', card);
-    //if(error.getError().code == 1) {
-    //  alert(error.getError().message)
-    //} else if (resources.checkCosts(card, 1)) {
-    //  card.playable = 'playable';
-    //} else {
-    //  error.setError(3);
-    //  alert(error.getError().message);
-    //}
+    //socket.emit('cardPlayable', card);
+    if(error.getError().code == 1) {
+      alert(error.getError().message)
+    } else if (resources.checkCosts(card, 1)) {
+      card.playable = 'playable';
+    } else {
+      error.setError(3);
+      alert(error.getError().message);
+    }
   }
 
 
