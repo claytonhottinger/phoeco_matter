@@ -7,8 +7,9 @@
 var app = require('../app');
 var debug = require('debug')('phoeco_matter:server');
 var http = require('http');
+var path = require('path');
 //initial player hand
-var playerOneHand = require('../public/data/cards.json');
+var playerOneHand = require(path.join(__dirname, '../public/data/cards.json'));
 
 /**
  * Get port from environment and store in Express.
