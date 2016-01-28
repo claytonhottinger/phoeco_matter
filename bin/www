@@ -9,7 +9,7 @@ var debug = require('debug')('phoenix covenant:server');
 var http = require('http');
 var path = require('path');
 //initial player hand
-var playerOneHand = require(path.join(__dirname, '../public/data/cards.json'));
+var playerOneHand = require(path.join(__dirname, '../public/Data/cards.json'));
 
 /**
  * Get port from environment and store in Express.
