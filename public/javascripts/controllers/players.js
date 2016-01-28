@@ -37,25 +37,22 @@ app.controller('players',['$scope','resources', 'socket', 'error',
 
   //update the scope when the server sends a resource update to the client
   socket.on('resourceResponse', function(data){
-    $scope.playerOne = data;
+    resources.setResources(1, data);
+    $scope.playerOne = resources.getResources(1);
   });
 
   //If the client is the active player, use the resource service to increment the command, update the scope, and send
   //the new resources to the server for relay to the other client. Alert an error message otherwise
   $scope.incrementP1Command = function(){
-    if(error.getError().code != 1) {
-      resources.incrementCommand(1);
-      $scope.playerOne = resources.getResources(1);
-      socket.emit('resource', $scope.playerOne);
-    }
+    resources.incrementCommand(1);
+    $scope.playerOne = resources.getResources(1);
+    socket.emit('resource', $scope.playerOne);
   };
   //Same as above, except for mana
   $scope.incrementP1Mana = function(){
-    if(error.getError().code != 1) {
-      resources.incrementMana(1);
-      $scope.playerOne = resources.getResources(1);
-      socket.emit('resource', $scope.playerOne);
-    }
+    resources.incrementMana(1);
+    $scope.playerOne = resources.getResources(1);
+    socket.emit('resource', $scope.playerOne);
   };
 
   //function that takes in a card object and determines if the player has enough resources to play that card

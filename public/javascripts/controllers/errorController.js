@@ -10,11 +10,5 @@ app.controller('errorController', ['$scope','error','socket', function($scope, e
     error.setError(data);
     $scope.error = error.getError();
     alert($scope.error.message);
-    //$mdToast.show(
-    //  $mdToast.simple()
-    //    .textContent($scope.error.message)
-    //    .position('top right')
-    //    .hideDelay(3000)
-    //);
   });
 }]);

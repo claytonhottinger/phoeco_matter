@@ -25,6 +25,13 @@ app.factory('resources', [function(){
   };
 
   return {
+    setResources: function(playerNumber, resourceObject){
+      if(playerNumber < 2){
+        playerOne = resourceObject;
+      } else {
+        playerTwo = resourceObject;
+      }
+    },
     getResources: function(playerNumber){
       if(playerNumber < 2){
         return playerOne

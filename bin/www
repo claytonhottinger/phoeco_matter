@@ -74,40 +74,57 @@ var activeCards = [];
  *If that array already has two socket id's, send the client an error
  */
 io.sockets.on('connection', function(socket){
-  if(socketconnections.length < 2){
+  if(socketconnections.length == 0){
     socketconnections.push(socket.id);
     socket.emit('response', gameState);
     socket.emit('p1HandResponse', playerOneHand);
     socket.emit('resourceResponse', playerOneResources);
-  } else {
-    socket.emit('oops', 2);
+  } else if (socketconnections.length ==1){
+    socketconnections.push(socket.id);
+    socket.emit('response', gameState);
+    socket.emit('p1HandResponse', playerOneHand);
+    socket.emit('resourceResponse', playerOneResources);
+    socket.emit('oops', 1);
+  }else {
+      socket.emit('oops', 2);
   }
 
+
 /**When the card is moved on a client, check to see if their socket id matches the first client to connect
- *If yes, then set the game state array to the one they sent, then send that updated gamestate to all clients
+ *If yes, use the active cards array to find where the card has been moved in the potential new gamestate,
+ *    if that location is legal (aka within the move points of the card), then set the game state array to the one
+ *      they sent, then send that updated gamestate to all clients
+ *    if not, then send an error to the client and the correct gamestate to all clients,
  *If no, send the client an error and the current gamestate to all clients
  */
   socket.on('sort', function(data){
+    //if it is the first player connected
     if(socket.id == socketconnections[0]){
+      //cycle through each row of the gameboard
       for(var i = 0; i<data.length; i++){
-
+        //cycle through each column of the gameboard
         for(var k = 0; k<data[i].length; k++){
-
+          //if there's a card in the current spot of the gameboard
           if(data[i][k][0]) {
+            //cycle through the active cards array
             for (var j = 0; j < activeCards.length; j++) {
-              if (activeCards[j].ID === data[i][k][0].ID) {
-                console.log(activeCards, data[i][k][0]);
+              //only perform movement check if the ID matches, and if it is a card that's moved
+              if (activeCards[j].ID === data[i][k][0].ID &&
+                (activeCards[j].row - i != 0 || activeCards[j].column - k != 0)
+              ) {
+                //if the distance the card has moved is less than its movement points
                 if (Math.abs(activeCards[j].row - i) <= activeCards[j].move
                   && Math.abs(activeCards[j].column - k) <= activeCards[j].move) {
-                  console.log('legal move');
+                  //set the new position within the active cards array
                   activeCards[j].row = i;
                   activeCards[j].column = k;
-                  console.log(activeCards[j]);
+                  //set the new gamestate
                   gameState = data;
+                  //send the new gamestate to all clients
                   io.emit('response', gameState);
                   return
                 } else {
-                  console.log('illegal move');
+                  //if the move is not legal, send the correct gamestate along with an error
                   io.emit('response', gameState);
                   socket.emit('oops', 5);
                   return
@@ -165,12 +182,17 @@ io.sockets.on('connection', function(socket){
       });
     }
   });
-
+  /**
+   * Plans to move new card validation to the server, not currently in use
+   * Emits the server's version of the player hand to all clients when it receives a signal
+   */
   socket.on('p1Hand', function(data){
     playerOneHand = data;
     io.emit('p1HandResponse', playerOneHand);
   });
-
+  /**
+   * Possible avenue for handling multiple players taking turns, not currently in use
+   */
   socket.on('isItMyTurn?', function(){
     if(socket.id == socketconnections[0]){
       socket.emit('isItMyTurn?', true);
@@ -179,6 +201,14 @@ io.sockets.on('connection', function(socket){
     }
   });
 
+  /**
+   * Plans to move new card validation to the server, not currently in use
+   * Checks the played card's costs against available resources,
+   *    sends the new hand if a valid play
+   *    sends an error if not
+   *
+   * Sends an error if a non-active client tries to play a card
+   */
   socket.on('cardPlayable', function(data){
     if(socket.id == socketconnections[0]){
       if(data.mana <= playerOneResources.mana && data.command <= playerOneResources.command){
@@ -196,7 +226,9 @@ io.sockets.on('connection', function(socket){
       socket.emit('oops', 1);
     }
   });
-
+  /**
+   * Updates and sends the current resources when the active client updates them
+   */
   socket.on('resource', function(data){
     if(socket.id == socketconnections[0]){
       playerOneResources = data;
