@@ -5,7 +5,7 @@
  */
 
 var app = require('../app');
-var debug = require('debug')('phoeco_matter:server');
+var debug = require('debug')('phoenix covenant:server');
 var http = require('http');
 var path = require('path');
 //initial player hand
@@ -187,10 +187,10 @@ io.sockets.on('connection', function(socket){
    * Plans to move new card validation to the server, not currently in use
    * Emits the server's version of the player hand to all clients when it receives a signal
    */
-  socket.on('p1Hand', function(data){
-    playerOneHand = data;
-    io.emit('p1HandResponse', playerOneHand);
-  });
+  //socket.on('p1Hand', function(data){
+  //  playerOneHand = data;
+  //  io.emit('p1HandResponse', playerOneHand);
+  //});
   /**
    * Possible avenue for handling multiple players taking turns, not currently in use
    */
@@ -210,23 +210,23 @@ io.sockets.on('connection', function(socket){
    *
    * Sends an error if a non-active client tries to play a card
    */
-  socket.on('cardPlayable', function(data){
-    if(socket.id == socketconnections[0]){
-      if(data.mana <= playerOneResources.mana && data.command <= playerOneResources.command){
-        for(var i = 0; i < playerOneHand.length; i++){
-          if(playerOneHand[i].title === data.title){
-            console.log('hand emitted');
-            playerOneHand[i].playable = 'playable';
-            socket.emit('p1HandResponse', playerOneHand);
-          }
-        }
-      } else {
-        socket.emit('oops', 3);
-      }
-    } else {
-      socket.emit('oops', 1);
-    }
-  });
+  //socket.on('cardPlayable', function(data){
+  //  if(socket.id == socketconnections[0]){
+  //    if(data.mana <= playerOneResources.mana && data.command <= playerOneResources.command){
+  //      for(var i = 0; i < playerOneHand.length; i++){
+  //        if(playerOneHand[i].title === data.title){
+  //          console.log('hand emitted');
+  //          playerOneHand[i].playable = 'playable';
+  //          socket.emit('p1HandResponse', playerOneHand);
+  //        }
+  //      }
+  //    } else {
+  //      socket.emit('oops', 3);
+  //    }
+  //  } else {
+  //    socket.emit('oops', 1);
+  //  }
+  //});
   /**
    * Updates and sends the current resources when the active client updates them
    */
